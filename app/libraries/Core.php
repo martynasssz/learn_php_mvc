@@ -7,16 +7,39 @@
 	 */
 
 	class Core {
-		protected $currentCpntroller = 'Pages'; //jei i url irasysime mvc/ ukraus pages controlery
+		protected $currentController = 'Pages'; //jei i url irasysime mvc/ ukraus pages controlery
 		protected $currentMethod = 'index';
 		protected $params = []; //prilyginam tusciam masyvui pagal nutylejima
 
 		public function __construct(){
-			$this->getUrl(); //ivykdysim funkcija kai sukursime nauja objekta //index.php faile
+			//print_r($this->getUrl()); //ivykdysim funkcija kai sukursime nauja objekta //index.php faile
+
+			$url = $this->getUrl();
+
+			// Look in controller for first value
+
+			if(file_exists('../app/controllers/'. ucwords($url[0]).'.php')){ //tikrina ar pirma egzituoja toks controleris, gaunamas is url kaip pirmas masyvo elementas //unwords pavers kiekvieno zodzio pirmaja raide i didziaja
+				// If exists, set as controller
+				$this->currentController = ucwords($url[0]) ; //jei post egzistuota controller folderyje, tuomet parametras $currentController perrasome Pages, priskirant controleri
+				//Unset 0 Index
+				unset($url[0]);
+			}
+
+			// Require the controller
+			require_once '../app/controllers/'.$this->currentController.'.php';
+
+			//Instantiate controller class
+			$this->correntController = new $this->currentController; //tam, kad uzkrautu sukurtus kontrolerius. Poo defaultu kraus Pages controlleri
 		}
 
-		public function getUrl(){
-			echo $_GET['url'];	} //gauname infor is url uz klaustuko
+		public function getUrl(){//echo $_GET['url']; gauname infor is url uz klaustuko
+			if(isset( $_GET['url'])){ //if(isset( $_GET['url'])) patikrinam ar egzistuoja			
+				$url = rtrim($_GET['url'],'/'); //su sia funkcija iskaido gauta url tarp sleshu
+				$url = filter_var($url, FILTER_SANITIZE_URL); //filter variable in certain ways, we can filter strings, numbers, check URL format
+				$url = explode ('/', $url); //panaudojant sia funkcija viska sudedam i array. Pvz./post/edit/1 viskas eis eiles tvarka nuo post iki 1 zemin
+				return $url; //i URL ivede http://localhost/oop/mvc/post/edit/1, gausime mesyva Array ( [0] => post [1] => edit [2] => 1 ) //konstruktriaus pagalba print_r($this->getUrl())
+			}
+		}	
 	}
 
 
