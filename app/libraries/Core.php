@@ -30,6 +30,26 @@
 
 			//Instantiate controller class
 			$this->correntController = new $this->currentController; //tam, kad uzkrautu sukurtus kontrolerius. Poo defaultu kraus Pages controlleri
+
+			// Check for second part of url
+			if(isset($url[1])){
+				// Check to see if meyhod exists in controller
+				if(method_exists($this->currentController, $url[1])){ //jei metodas egzistuoja
+					$this->currentMethod = $url[1]; //parametrui priskiriame metoda
+					// Unset 1 index
+					unset($url[1]);//unsetinam metoda, kad galetu uzkrauti parametra
+				}
+			}
+
+			//echo $this->currentMethod;//uzkrovus puslapi http://localhost/oop/mvc/ matome index (pardomas defaultnis metodas) jei http://localhost/oop/mvc/pages/about (jei nebus metodo about uzkraus index),jei bus metodas about tada ji ir uzkraus
+
+			//Get params //get any value throughthe paramether
+			$this->params = $url ? array_values($url) : []; //jei yra masyvo grazina masyvo vertes jei ne priskiria tucia masyva //array_values() FunctionReturn all the values of an array (not the keys)
+
+			//Call a callback with array of params
+			call_user_func_array([$this->currentController, $this->currentMethod], $this->params);//pirmiausia iskviecia masyve esancias funkcijas (metodus), po to prideda parametra
+				
+
 		}
 
 		public function getUrl(){//echo $_GET['url']; gauname infor is url uz klaustuko
