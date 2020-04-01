@@ -22,7 +22,11 @@
 
 		public function about(){ //id uzkomentuojamas
 			//echo $id;
-			$this->view('pages/about'); //http://localhost/oop/mvc/pages/about gausime ABOUT
+			$data = [
+				'title' => 'About us'
+			];
+			
+			$this->view('pages/about', $data); //http://localhost/oop/mvc/pages/about gausime ABOUT
 		}
 	}
 
