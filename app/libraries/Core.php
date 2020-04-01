@@ -29,7 +29,7 @@
 			require_once '../app/controllers/'.$this->currentController.'.php';
 
 			//Instantiate controller class
-			$this->correntController = new $this->currentController; //tam, kad uzkrautu sukurtus kontrolerius. Poo defaultu kraus Pages controlleri
+			$this->currentController = new $this->currentController; //tam, kad uzkrautu sukurtus kontrolerius. Poo defaultu kraus Pages controlleri
 
 			// Check for second part of url
 			if(isset($url[1])){
