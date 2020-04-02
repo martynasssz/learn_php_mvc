@@ -14,10 +14,14 @@
 			//$this->view('pages/index'); //uzkraus HOMEPAGE nes padavem i view index.php faila
 			
 			//$this->view('pages/index', ['title' => 'Welcome']);//pass data to array
+			$posts = $this->postModel->getPosts();
 
 			$data = [
-				'title' => 'Welcome'
+				'title' => 'Welcome',
+				'posts' => $posts //paduodame duomenis
 			];
+
+
 
 			$this->view('pages/index', $data); //masyva iskelem atskirai, padavem tik kitamaji
 
