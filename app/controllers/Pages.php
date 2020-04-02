@@ -2,6 +2,9 @@
 	class Pages extends Controller { //defautinis controleris
 		public function __construct(){
 			//echo 'Pages loaded';
+			/////----------------------This class just for example -----------------------/////
+			$this->postModel = $this->model('Post'); //load model
+			/////----------------------This class just for example -----------------------/////
 		}
 
 		public function index(){ //sis metodas reikalingas, kad uzkrovus puspapi nebutu erroro

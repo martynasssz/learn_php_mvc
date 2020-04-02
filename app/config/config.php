@@ -1,6 +1,11 @@
-<?php //define same constence
-	//App Root
+<?php 
+	// DB Params
+	define('DB_HOST', 'localhost');
+	define('DB_USER', 'root');
+	define('DB_PASS', '');
+	define('DB_NAME', 'mvc');
 
+	//    App Root
 	//    echo __FILE__; // gives path to config file: C:\xampp\htdocs\oop\mvc\app\config\config.php
 	//    echo dirname(__FILE__); //gives C:\xampp\htdocs\oop\mvc\app\config
 	//    echo dirname(dirname(__FILE__));  //gives C:\xampp\htdocs\oop\mvc\app
